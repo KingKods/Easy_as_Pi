@@ -7,7 +7,6 @@ from tornado.options import define, options, parse_command_line
 
 define("port", default=8888, help="run on the given port", type=int)
 
-# we gonna store clients in dictionary..
 clients = dict()
 
 class IndexHandler(tornado.web.RequestHandler):
@@ -27,9 +26,6 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
         clients[self.id] = {"id": self.id, "object": self}
 
     def on_message(self, message):        
-        
-        #when we receive some message we want some message handler..
-        #for this example i will just print message to console
         print("Client %s received a message : %s" % (self.id, message))
         number_string = message.split(',')
         number_string = [float(i) for i in number_string]
